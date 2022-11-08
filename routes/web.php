@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CopyController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LendingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,8 +41,12 @@ Route::middleware( ['admin'])->group(function () {
     Route::apiResource('/users', UserController::class);
 });
 
-Route::patch('/api/users/password/{id}', [UserController::class], 'updatePassword');
+Route::patch('/api/users/password/{id}', [UserController::class, 'updatePassword']);
 Route::apiResource('/api/copies', CopyController::class);
 Route::apiResource('/api/books', BookController::class);
+Route::get('/teszt',[LendingController::class, 'teszt']);
+Route::get('/api/lendings/{user_id}/{copy_id}/{start}',[LendingController::class, 'show']);
+
+Route::get('/copies/title/{title}', [BookController::class, 'title_copy']);
 
 require __DIR__.'/auth.php';
